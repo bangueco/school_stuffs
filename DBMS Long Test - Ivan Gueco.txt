@@ -1,0 +1,70 @@
+CREATE DATABASE school_data;
+USE school_data;
+
+CREATE TABLE student(
+    StudNo varchar(25) PRIMARY KEY,
+    StudFName varchar(25),
+    StudLName varchar(25),
+    Major varchar(25),
+    Gender enum('m','f'),
+    HomeAddress varchar(25)
+);
+
+CREATE TABLE subject(
+    SubjectCode varchar(25) PRIMARY KEY,
+    SubjectDescr varchar(25)
+);
+
+CREATE TABLE grade(
+    StudNo varchar(25),
+    SubjectCode varchar(25),
+    Grade varchar(25),
+    CONSTRAINT fk_grade_student_StudNo FOREIGN KEY (StudNo) REFERENCES student(StudNo),
+    CONSTRAINT fk_grade_subject_SubjectCode FOREIGN KEY (SubjectCode) REFERENCES subject(SubjectCode)
+);
+
+INSERT INTO subject (SubjectCode, SubjectDescr)
+VALUES 
+("Chem 123", "Chemistry"),
+("Math 122", "Trigonometry"),
+("Math 123", "Algebra")
+
+INSERT INTO student(StudNo, StudFName, StudLName, Major, Gender, HomeAddress)
+VALUES 
+("S-101", "Ana", "Cruz", "ECE", "F", "Malolos, Bulacan"),
+("S-102", "Hazel", "Ponce", "COE", "F", "Plaridel, Bulacan"),
+("S-103", "Cristov", "Concio", "ECE", "M", "Malolos, Bulacan"),
+("S-104", "Aris", "Clavio", "COE", "M", "Pulilan, Bulacan"),
+("S-105", "Honey", "Pelayo", "COE", "F", "Plaridel, Bulacan"),
+("S-106", "Carrie", "Abao", "ECE", "F", "Pulilan, Bulacan")
+
+INSERT INTO grade(StudNo, SubjectCode, Grade)
+VALUES
+("S-101", "Chem 123", "2.00"),
+("S-101", "Math 122", "1.00"),
+("S-101", "Math 123", "1.50"),
+("S-102", "Chem 123", "1.75"),
+("S-102", "Math 122", "1.25"),
+("S-102", "Math 123", "1.50"),
+("S-103", "Chem 123", "2.00"),
+("S-103", "Math 122", "1.75"),
+("S-103", "Math 123", "1.25"),
+("S-104", "Chem 123", "1.25"),
+("S-104", "Math 122", "2.25"),
+("S-104", "Math 123", "2.50"),
+("S-105", "Chem 123", "1.00"),
+("S-105", "Math 122", "1.25"),
+("S-105", "Math 123", "2.50"),
+("S-106", "Chem 123", "1.25"),
+("S-106", "Math 122", "1.50"),
+("S-106", "Math 123", "1.75")
+
+SELECT concat(student.StudFName, " ", student.StudLName) AS "Full Name", student.HomeAddress FROM student
+WHERE student.gender = "f" && student.HomeAddress = "Malolos, Bulacan" && student.Major = "ECE"
+
+SELECT concat(student.StudFName, " ", student.StudLName) AS "Full Name", student.Major, SubjectCode, grade 
+FROM grade INNER JOIN student ON grade.StudNo = student.StudNo WHERE grade >= 2.0 && grade.SubjectCode = "Math 122"
+
+SELECT 
+concat(student.StudLName, " ", student.StudFName) AS "Full Name", student.gender, student.HomeAddress as Address, grade.SubjectCode, grade.Grade
+FROM student INNER JOIN grade ON student.StudNo = grade.StudNo WHERE Major = "COE"
