@@ -1,0 +1,36 @@
+CREATE DATABASE midterm_exam;
+USE midterm_exam;
+    
+CREATE TABLE subjects(
+    SubJCode varchar(50) PRIMARY KEY,
+    SubJDesc varchar(50)
+);
+
+CREATE TABLE students(
+    StudNo varchar(50) PRIMARY KEY,
+    StudFName varchar(50),
+    StudLName varchar(50),
+    Gender enum('M', 'F'),
+    HomeAddress varchar(50),
+    Subject varchar(50),
+    CONSTRAINT fk_students_subject_subjects_SubJCode FOREIGN KEY (Subject) REFERENCES subjects(SubJCode)
+);
+    
+CREATE TABLE major(
+    Major varchar(50) PRIMARY KEY,
+    StudNo varchar(50),
+    SubJCode varchar(50),
+    CONSTRAINT fk_major_studno_student_StudNo FOREIGN KEY (StudNo) REFERENCES students(StudNo),
+    CONSTRAINT fk_major_subjcode_subjects_SubJCode FOREIGN KEY (SubJCode) REFERENCES subjects(SubJCode)
+);
+
+CREATE TABLE grades(
+    Grade_ID int PRIMARY KEY,
+    StudNo varchar(50),
+    SubJCode varchar(50),
+    Major varchar(50),
+    Grades varchar(20),
+    CONSTRAINT fk_grades_StudNo_student_StudNo FOREIGN KEY (StudNo) REFERENCES students(StudNo),
+    CONSTRAINT fk_grades_SubJCode_subjects_SubJCode FOREIGN KEY (SubJCode) REFERENCES subjects(SubJCode),
+    CONSTRAINT fk_major_Major_major_major FOREIGN KEY (Major) REFERENCES major(Major)
+);
