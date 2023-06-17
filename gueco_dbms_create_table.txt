@@ -1,0 +1,27 @@
+DROP DATABASE IF EXISTS finals_gueco;
+CREATE DATABASE finals_gueco;
+USE finals_gueco;
+    
+CREATE TABLE agent_data(
+    AGENT_CODE varchar(50) PRIMARY KEY NOT NULL,
+    AGENT_NAME varchar(50) NOT NULL,
+    WORKING_AREA varchar(50) NOT NULL,
+    COMMISION float NOT NULL,
+    PHONE_NO varchar(50) NOT NULL,
+    COUNTRY varchar(50) NOT NULL);
+    
+CREATE TABLE customer_data(
+    AGENT_CODE varchar(50) NOT NULL,
+    CUST_CODE varchar(50) PRIMARY KEY NOT NULL,
+    CUST_NAME varchar(50) NOT NULL,
+    CUST_CITY varchar(50) NOT NULL,
+    WORKING_AREA varchar(50) NOT NULL,
+    CUST_COUNTRY varchar(50) NOT NULL,
+    GRADE int NOT NULL,
+    OPENING_AMT int NOT NULL,
+    RECEIVE_AMT int NOT NULL,
+    PAYMENT_AMT int NOT NULL,
+    OUTSTANDING_AMT int NOT NULL,
+    PHONE_NO int NOT NULL,
+    CONSTRAINT fk_customer_data_agent_code_agent_data_agent_code FOREIGN KEY (AGENT_CODE) REFERENCES agent_data(AGENT_CODE)
+);
