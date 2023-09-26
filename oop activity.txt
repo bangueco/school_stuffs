@@ -1,0 +1,123 @@
+using System;
+
+class School {
+    public string school_name;
+    
+    public string school_student() {
+        return "Ban Batongbakal";
+    }
+    
+    public string school_course() {
+        return "BSIT";
+    }
+}
+
+class Subjects : School {
+    public string subject_name;
+    public int subject_code;
+    
+    public string subject_student() {
+        return school_student();
+    }
+    
+    public string subject_course() {
+        return school_course();
+    }
+}
+
+class Course : Subjects {
+    public string course_name;
+    
+    public string course_student() {
+        return subject_student();
+    }
+    
+    public string course_school() {
+        return "EPCST";
+    }
+    
+    public string course_subject() {
+        return subject_name;
+    }
+}
+
+class Student : Course {
+    public string student_name;
+    public string student_age;
+    public string school_ID;
+    public string subject() {
+        return course_subject();
+    }
+    public string course() {
+        return course_name;
+    }
+    
+    public string information() {
+        string[] info = {
+            "Student Name: " + this.student_name, 
+            "Age: " + this.student_age, 
+            "School ID: " + this.school_ID, 
+            "School Name: " + school_name, 
+            "Course Name: " + course_name, 
+            "Subject Name: " + subject_name
+        };
+        
+        return info[0] + ", " + info[1] + ", " + info[2] + ", " + info[3] + ", " + info[4] + ", " + info[5];
+    }
+}
+
+class HelloWorld {
+  static void Main() {
+    Student ban = new Student();
+    Student jhobart = new Student();
+    Student vandesal = new Student();
+    Student cashman =  new Student();
+    Student pandesal = new Student();
+    
+    // Ban's information
+    ban.student_name = "Ban Batongbakal";
+    ban.student_age = "21";
+    ban.school_ID = "21-0193";
+    ban.school_name = "EPCST";
+    ban.subject_name = "WEBTECH";
+    ban.course_name = "BSIT";
+    
+    // Jhobart's information
+    jhobart.student_name = "Jhobart Jourland";
+    jhobart.student_age = "22";
+    jhobart.school_ID = "21-0666";
+    jhobart.school_name = "AMA";
+    jhobart.subject_name = "Nigga";
+    jhobart.course_name = "BSCS";
+    
+    // Vandesal's information
+    vandesal.student_name = "Van Desal";
+    vandesal.student_age = "33";
+    vandesal.school_ID = "21-0123";
+    vandesal.school_name = "BPSU";
+    vandesal.subject_name = "Kneegas";
+    vandesal.course_name = "BSHM";
+    
+    // Cashman's information
+    cashman.student_name = "Costa Cashman";
+    cashman.student_age = "34";
+    cashman.school_ID = "20-1234";
+    cashman.school_name = "Malate Killers";
+    cashman.subject_name = "Rapper";
+    cashman.course_name = "Wala";
+    
+    // Pandesal's information
+    pandesal.student_name = "Pan Desal";
+    pandesal.student_age = "35";
+    pandesal.school_ID = "20-0451";
+    pandesal.school_name = "Bekiry";
+    pandesal.subject_name = "Meow";
+    pandesal.course_name = "BSM";
+    
+    Console.WriteLine(ban.information());
+    Console.WriteLine(jhobart.information());
+    Console.WriteLine(vandesal.information());
+    Console.WriteLine(pandesal.information());
+    Console.WriteLine(cashman.information());
+  }
+}
